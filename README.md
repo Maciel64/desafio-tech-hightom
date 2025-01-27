@@ -1,4 +1,5 @@
-Desafio Técnico – Desenvolvedor Back-End (NestJS + TypeORM)
+## Desafio Técnico – Desenvolvedor Back-End (NestJS + TypeORM)
+
 Descrição do Desafio
 Você foi contratado para desenvolver uma funcionalidade de processamento de pedidos para um sistema de e-commerce. A aplicação deve ser desenvolvida utilizando NestJS, TypeORM e seguir os princípios da Clean Architecture.
 
@@ -24,9 +25,11 @@ TypeORM: Para modelagem e manipulação do banco de dados.
 Filas: Utilize uma biblioteca como Bull ou RabbitMQ para o processamento assíncrono.
 Clean Architecture: A aplicação deve estar estruturada seguindo os princípios da Clean Architecture (use cases, repositórios, entidades, etc.).
 Endpoints REST: Desenvolva endpoints para:
-Registrar pedidos.
-Consultar pedidos com filtros opcionais.
-Critérios de Avaliação
+
+- Registrar pedidos.
+- Consultar pedidos com filtros opcionais.
+- Critérios de Avaliação
+
 Tempo de Entrega:
 O prazo de entrega será um fator importante. Avaliaremos sua capacidade de concluir o desafio dentro do tempo estimado, levando em consideração a qualidade do resultado.
 
