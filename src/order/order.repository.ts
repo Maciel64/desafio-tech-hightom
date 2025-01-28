@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class OrderRepository {
+export class OrderRepository implements IOrderRepository {
   constructor(
     @InjectRepository(Order) private typeormOrderAdapter: Repository<Order>,
   ) {}
@@ -31,4 +31,12 @@ export class OrderRepository {
   async delete(id: string): Promise<void> {
     await this.typeormOrderAdapter.delete(id);
   }
+}
+
+export interface IOrderRepository {
+  get: (id: string) => Promise<Order>;
+  getAll: () => Promise<Order[]>;
+  create: (data: OrderDTO) => Promise<Order>;
+  update: (id: string, data: OrderDTO) => Promise<Order>;
+  delete: (id: string) => Promise<void>;
 }

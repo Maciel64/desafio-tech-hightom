@@ -15,6 +15,21 @@ services:
 
     networks:
       - hightom-network
+  cache:
+    image: redis
+    container_name: hightom_django_cache
+
+    ports:
+      - ${CACHE_PORT}:6379
+
+    networks:
+      - hightom-network
+
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
 volumes:
   database_volume:

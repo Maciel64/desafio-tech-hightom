@@ -1,26 +1,46 @@
 import { Injectable } from '@nestjs/common';
-import { OrderRepository } from './order.repository';
+import { IOrderRepository, OrderRepository } from './order.repository';
 import { OrderDTO } from './DTO/order.dto';
+import { IOrderQueue, OrderQueue } from './order.queue';
+import { Order } from './entities/order.entity';
 
 @Injectable()
 export class OrderService {
-  get(id: string, orderRepository: OrderRepository) {
+  async get(id: string, orderRepository: OrderRepository) {
     return orderRepository.get(id);
   }
 
-  getAll(orderRepository: OrderRepository) {
+  async getAll(orderRepository: OrderRepository) {
     return orderRepository.getAll();
   }
 
-  create(data: OrderDTO, orderRepository: OrderRepository) {
-    return orderRepository.create(data);
+  async create(
+    data: OrderDTO,
+    orderRepository: OrderRepository,
+    orderQueue: OrderQueue,
+  ) {
+    const order = await orderRepository.create(data);
+
+    orderQueue.register(order);
+
+    return order;
   }
 
-  update(id: string, data: OrderDTO, orderRepository: OrderRepository) {
+  async update(id: string, data: OrderDTO, orderRepository: OrderRepository) {
     return orderRepository.update(id, data);
   }
 
-  delete(id: string, orderRepository: OrderRepository) {
+  async delete(id: string, orderRepository: OrderRepository) {
     return orderRepository.delete(id);
   }
+}
+
+export interface IOrderService {
+  get: () => Promise<Order>;
+  getAll: () => Promise<Order[]>;
+  create: (
+    data: OrderDTO,
+    orderRepository: IOrderRepository,
+    orderQueue: IOrderQueue,
+  ) => Promise<Order>;
 }

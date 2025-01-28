@@ -10,12 +10,14 @@ import {
 import { OrderService } from './order.service';
 import { OrderRepository } from './order.repository';
 import { OrderDTO } from './DTO/order.dto';
+import { OrderQueue } from './order.queue';
 
 @Controller('api/v1/orders')
 export class OrderController {
   public constructor(
     private readonly orderService: OrderService,
     private readonly orderRepository: OrderRepository,
+    private readonly orderQueue: OrderQueue,
   ) {}
 
   @Get()
@@ -30,7 +32,11 @@ export class OrderController {
 
   @Post()
   create(@Body() data: OrderDTO) {
-    return this.orderService.create(data, this.orderRepository);
+    return this.orderService.create(
+      data,
+      this.orderRepository,
+      this.orderQueue,
+    );
   }
 
   @Patch(':id')
