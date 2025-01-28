@@ -3,6 +3,7 @@ import { Order } from './entities/order.entity';
 import { OrderDTO } from './DTO/order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdateOrderDTO } from './DTO/update-order.dto';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -23,7 +24,7 @@ export class OrderRepository implements IOrderRepository {
     return this.typeormOrderAdapter.save(order);
   }
 
-  async update(id: string, data: OrderDTO): Promise<Order> {
+  async update(id: string, data: UpdateOrderDTO): Promise<Order> {
     await this.typeormOrderAdapter.update(id, data);
     return this.typeormOrderAdapter.findOne({ where: { id } });
   }
@@ -37,6 +38,6 @@ export interface IOrderRepository {
   get: (id: string) => Promise<Order>;
   getAll: () => Promise<Order[]>;
   create: (data: OrderDTO) => Promise<Order>;
-  update: (id: string, data: OrderDTO) => Promise<Order>;
+  update: (id: string, data: UpdateOrderDTO) => Promise<Order>;
   delete: (id: string) => Promise<void>;
 }

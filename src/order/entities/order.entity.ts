@@ -6,6 +6,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum Status {
+  PENDING = 'PENDING',
+  PROCESSING = 'PROCESSING',
+  FINISHED = 'FINISHED',
+}
+
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn()
@@ -22,6 +28,9 @@ export class Order {
 
   @Column('text')
   clientInfo: string;
+
+  @Column('text', { default: Status.PENDING })
+  status: Status;
 
   @CreateDateColumn()
   createdAt: Date;
