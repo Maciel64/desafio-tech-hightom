@@ -11,5 +11,5 @@ export class OrderDTO {
   price: number;
 
   @IsString()
-  client_info: string;
+  clientInfo: string;
 }

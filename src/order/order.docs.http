@@ -1,0 +1,25 @@
+GET http://localhost:3000/api/v1/orders
+
+###
+
+POST http://localhost:3000/api/v1/orders
+Content-Type: application/json
+
+{
+  "product": "Hamburguer",
+  "quantity": 10,
+  "price": 18,
+  "clientInfo": "Endereço tal na rua tal"
+}
+
+###
+
+PATCH http://localhost:3000/api/v1/orders
+Content-Type: application/json
+
+{
+  "product": "Hamburguer",
+  "quantity": 10,
+  "price": 18,
+  "clientInfo": "Endereço tal na rua tal"
+}

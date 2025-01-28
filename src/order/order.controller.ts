@@ -11,7 +11,7 @@ import { OrderService } from './order.service';
 import { OrderRepository } from './order.repository';
 import { OrderDTO } from './DTO/order.dto';
 
-@Controller('orders')
+@Controller('api/v1/orders')
 export class OrderController {
   public constructor(
     private readonly orderService: OrderService,

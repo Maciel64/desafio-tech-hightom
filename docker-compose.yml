@@ -1,0 +1,24 @@
+services:
+  database:
+    image: postgres
+    container_name: hightom_django_database
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+
+    ports:
+      - ${DB_PORT}:5432
+
+    volumes:
+      - database_volume:/var/lib/postgresql/data
+
+    networks:
+      - hightom-network
+
+volumes:
+  database_volume:
+
+networks:
+  hightom-network:
+    driver: bridge

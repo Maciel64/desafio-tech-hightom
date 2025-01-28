@@ -1,24 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { Order } from './entities/order';
+import { Order } from './entities/order.entity';
 import { OrderDTO } from './DTO/order.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class OrderRepository {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  get(id: string): Order {
-    return new Order();
+  constructor(
+    @InjectRepository(Order) private typeormOrderAdapter: Repository<Order>,
+  ) {}
+
+  async get(id: string): Promise<Order> {
+    return this.typeormOrderAdapter.findOne({ where: { id } });
   }
-  getAll(): Order[] {
-    return [];
+
+  async getAll(): Promise<Order[]> {
+    return this.typeormOrderAdapter.find();
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(data: OrderDTO): Order {
-    return new Order();
+
+  async create(data: OrderDTO): Promise<Order> {
+    const order = this.typeormOrderAdapter.create(data);
+    return this.typeormOrderAdapter.save(order);
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: string, data: OrderDTO): Order {
-    return new Order();
+
+  async update(id: string, data: OrderDTO): Promise<Order> {
+    await this.typeormOrderAdapter.update(id, data);
+    return this.typeormOrderAdapter.findOne({ where: { id } });
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  delete(id: string): void {}
+
+  async delete(id: string): Promise<void> {
+    await this.typeormOrderAdapter.delete(id);
+  }
 }
