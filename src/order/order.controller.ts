@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderRepository } from './order.repository';
-import { OrderDTO } from './DTO/order.dto';
+import { CreateOrderDTO } from './DTO/create-order.dto';
 import { OrderQueue } from './order.queue';
 
 @Controller('api/v1/orders')
@@ -31,7 +31,7 @@ export class OrderController {
   }
 
   @Post()
-  create(@Body() data: OrderDTO) {
+  create(@Body() data: CreateOrderDTO) {
     return this.orderService.create(
       data,
       this.orderRepository,
@@ -40,7 +40,7 @@ export class OrderController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() data: OrderDTO) {
+  update(@Param('id') id: string, @Body() data: CreateOrderDTO) {
     return this.orderService.update(id, data, this.orderRepository);
   }
 

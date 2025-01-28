@@ -1,13 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { IOrderRepository, OrderRepository } from './order.repository';
-import { OrderDTO } from './DTO/order.dto';
+import { CreateOrderDTO } from './DTO/create-order.dto';
 import { IOrderQueue, OrderQueue } from './order.queue';
 import { Order } from './entities/order.entity';
+import { OrderNotFoundException } from './order.error';
+import { UpdateOrderDTO } from './DTO/update-order.dto';
 
 @Injectable()
-export class OrderService {
+export class OrderService implements IOrderService {
   async get(id: string, orderRepository: OrderRepository) {
-    return orderRepository.get(id);
+    const order = await orderRepository.get(id);
+
+    if (!order) {
+      throw new OrderNotFoundException();
+    }
+
+    return order;
   }
 
   async getAll(orderRepository: OrderRepository) {
@@ -15,7 +23,7 @@ export class OrderService {
   }
 
   async create(
-    data: OrderDTO,
+    data: CreateOrderDTO,
     orderRepository: OrderRepository,
     orderQueue: OrderQueue,
   ) {
@@ -26,7 +34,17 @@ export class OrderService {
     return order;
   }
 
-  async update(id: string, data: OrderDTO, orderRepository: OrderRepository) {
+  async update(
+    id: string,
+    data: UpdateOrderDTO,
+    orderRepository: OrderRepository,
+  ) {
+    const order = await orderRepository.get(id);
+
+    if (!order) {
+      throw new OrderNotFoundException();
+    }
+
     return orderRepository.update(id, data);
   }
 
@@ -36,11 +54,17 @@ export class OrderService {
 }
 
 export interface IOrderService {
-  get: () => Promise<Order>;
-  getAll: () => Promise<Order[]>;
+  get: (id: string, orderRepository: OrderRepository) => Promise<Order>;
+  getAll: (orderRepository: OrderRepository) => Promise<Order[]>;
   create: (
-    data: OrderDTO,
+    data: CreateOrderDTO,
     orderRepository: IOrderRepository,
     orderQueue: IOrderQueue,
   ) => Promise<Order>;
+  update: (
+    id: string,
+    data: UpdateOrderDTO,
+    orderRepository: OrderRepository,
+  ) => Promise<Order>;
+  delete: (id: string, orderRepository: OrderRepository) => Promise<void>;
 }

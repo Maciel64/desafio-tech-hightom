@@ -5,11 +5,15 @@ import { Job } from 'bull';
 export class OrderProcessor {
   @Process()
   async handleOrderProcessing(job: Job) {
-    console.log('Processing order:', job.data.id);
+    console.log(`[${new Date()}] Processing order: `, job.data.id);
 
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    console.log(`Order ${job.data} processed successfully!`);
+    console.log(
+      `[${new Date()}] Order`,
+      job.data.id,
+      'processed successfully!',
+    );
 
     return {
       status: 'success',

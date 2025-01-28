@@ -2,6 +2,10 @@ GET http://localhost:3000/api/v1/orders
 
 ###
 
+GET http://localhost:3000/api/v1/orders/12
+
+###
+
 POST http://localhost:3000/api/v1/orders
 Content-Type: application/json
 
@@ -14,12 +18,12 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3000/api/v1/orders
+PATCH http://localhost:3000/api/v1/orders/13
 Content-Type: application/json
 
 {
-  "product": "Hamburguer",
-  "quantity": 10,
+  "product": "Pizza",
+  "quantity": 21,
   "price": 18,
   "clientInfo": "Endereço tal na rua tal"
 }
