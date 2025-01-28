@@ -7,7 +7,8 @@ export class QueryOrderDTO {
   @IsOptional()
   @IsDate()
   @ApiProperty({
-    description: 'Data de fechamento do pedido',
+    description:
+      'Data de fechamento do pedido. Filtra pedidos fechados após a data informada',
     type: String,
     required: false,
     format: 'date-time',

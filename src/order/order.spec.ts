@@ -70,7 +70,7 @@ describe('OrderService', () => {
 
       mockOrderRepository.getAll.mockResolvedValue(mockOrders);
 
-      const result = await orderService.getAll(mockOrderRepository);
+      const result = await orderService.getAll({}, mockOrderRepository);
 
       expect(result).toEqual(mockOrders);
       expect(mockOrderRepository.getAll).toHaveBeenCalled();
@@ -79,7 +79,7 @@ describe('OrderService', () => {
     it('should return an empty array if no orders are found', async () => {
       mockOrderRepository.getAll.mockResolvedValue([]);
 
-      const result = await orderService.getAll(mockOrderRepository);
+      const result = await orderService.getAll({}, mockOrderRepository);
 
       expect(result).toEqual([]);
       expect(mockOrderRepository.getAll).toHaveBeenCalled();

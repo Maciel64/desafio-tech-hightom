@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Order } from './entities/order.entity';
 import { CreateOrderDTO } from './DTO/create-order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { UpdateOrderDTO } from './DTO/update-order.dto';
 import { QueryOrderDTO } from './DTO/query-order.dto';
 
@@ -17,10 +17,16 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async getAll(query: QueryOrderDTO): Promise<Order[]> {
+    const where: any = {
+      status: query.status,
+    };
+
+    if (query.closedAt) {
+      where.closedAt = MoreThan(query.closedAt);
+    }
+
     return this.typeormOrderAdapter.find({
-      where: {
-        status: query.status,
-      },
+      where,
     });
   }
 
