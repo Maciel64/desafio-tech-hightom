@@ -16,15 +16,17 @@ pnpm
 
 3. Após o docker subir, instale as dependências com `pnpm i`
 
-4. Rode as migrations com o `pnpm migration:run`
+4. Faça um build para que o TypeORM identifique as migrations com `pnpm build`
 
-5. Rode o servidor com `pnpm dev`
+5. Rode as migrations com o `pnpm migration:run`
 
-6. A documentação em Swagger está disponível em `http:localhost:3000/api/v1/docs`
+6. Rode o servidor com `pnpm dev`
 
-7. Também é possível utilizar a extensão `Rest Client` do VsCode para realizar as requisições. As definições estão no arquivo `order.docs.http`
+7. A documentação em Swagger está disponível em `http:localhost:3000/api/v1/docs`
 
-8. Para rodar os testes, utilize `pnpm test`
+8. Também é possível utilizar a extensão `Rest Client` do VsCode para realizar as requisições. As definições estão no arquivo `order.docs.http`
+
+9. Para rodar os testes, utilize `pnpm test`
 
 ## Da arquitetura
 
