@@ -1,3 +1,37 @@
+## Documentação do projeto
+
+Para rodar o projeto é necessário ter
+
+```
+docker e docker-compose
+node (pelo menos na versão 20.13)
+pnpm
+```
+
+### Iniciando
+
+1. Crie um arquivo `.env` e copie o conteúdo `.env.example` dentro dele. O conteúdo do `.env.example` é suficiente para rodar o projeto, sem a necessidade de preencher mais nada.
+
+2. Rode o `docker-compose up -d` para subir o postgres e o redis.
+
+3. Após o docker subir, instale as dependências com `pnpm i`
+
+4. Rode as migrations com o `pnpm migration:run`
+
+5. Rode o servidor com `pnpm dev`
+
+6. A documentação em Swagger está disponível em `http:localhost:3000/api/v1/docs`
+
+7. Também é possível utilizar a extensão `Rest Client` do VsCode para realizar as requisições. As definições estão no arquivo `order.docs.http`
+
+8. Para rodar os testes, utilize `pnpm test`
+
+## Da arquitetura
+
+1. Utilizei uma arquitetura básica em camadas, com Controller, Service e Repository.
+2. Acredito que a camada de Repository é indispensável, pois é importante para mockar facilmente ao realizar os testes unitários
+3. Criei interfaces nas camadas de Service e Repository, assim como na Queue, para representar o modelo que as abstrações devem seguir. Isso é importante para seguir o Liskov Substitution Principle (LSP ou L do SOLID), tornando fácil substituir as implementações. Por exemplo, o TypeORM pode ser substituido pelo Prisma e o driver do Bull pelo do RabbitMQ facilmente, desde que as classes que realizem essas implementações tenham os mesmos métodos das interfaces, com os mesmos parâmetros e retornos.
+
 ## Desafio Técnico – Desenvolvedor Back-End (NestJS + TypeORM)
 
 Descrição do Desafio
@@ -17,19 +51,18 @@ Registre um log de processamento, contendo a data e hora da finalização.
 Consultar Pedidos:
 Desenvolva um endpoint que permita listar pedidos, com os seguintes filtros opcionais:
 
-- Status: Filtrar por status do pedido (ex.: "Pendente", "Processado").
+- [x] Status: Filtrar por status do pedido (ex.: "Pendente", "Processado").
+
 - Data de Criação: Filtrar pedidos por intervalo de datas.
 
 ### Requisitos Técnicos
 
-- NestJS: Para a estrutura do projeto.
-- TypeORM: Para modelagem e manipulação do banco de dados.
-- Filas: Utilize uma biblioteca como Bull ou RabbitMQ para o processamento assíncrono.
-- Clean Architecture: A aplicação deve estar estruturada seguindo os princípios da Clean Architecture (use cases, repositórios, entidades, etc.).
+- [x] NestJS: Para a estrutura do projeto. -[x] TypeORM: Para modelagem e manipulação do banco de dados. -[x] Filas: Utilize uma biblioteca como Bull ou RabbitMQ para o processamento assíncrono. -[x] Clean Architecture: A aplicação deve estar estruturada seguindo os princípios da Clean Architecture (use cases, repositórios, entidades, etc.).
+
 - Endpoints REST: Desenvolva endpoints para:
-  - Registrar pedidos.
-  - Consultar pedidos com filtros opcionais.
-  - Critérios de Avaliação
+  - [x] Registrar pedidos.
+  - [x] Consultar pedidos com filtros opcionais.
+  - ? Critérios de Avaliação
 
 Tempo de Entrega:
 O prazo de entrega será um fator importante. Avaliaremos sua capacidade de concluir o desafio dentro do tempo estimado, levando em consideração a qualidade do resultado.
@@ -46,14 +79,15 @@ Tratamento de erros e consistência na lógica.
 Atenção: O tempo de entrega e a qualidade do código terão um peso significativo na avaliação.
 
 Entrega do Desafio
-O código deve estar hospedado em um repositório público (GitHub).
-Incluir um arquivo README.md com:
-Instruções para executar o projeto (instalação de dependências, execução do servidor e configuração).
-Explicação básica sobre a solução e arquitetura utilizada.
-Bônus (não obrigatório, mas valorizado)
-Testes Automatizados: Crie testes unitários e/ou de integração para demonstrar a robustez do código.
-Uso de Docker: Utilize containers Docker para facilitar a configuração e execução do ambiente de desenvolvimento.
-Documentação Alternativa: Caso deseje, inclua uma documentação dos endpoints (ex.: Postman Collection ou similar).
+
+- [x] O código deve estar hospedado em um repositório público (GitHub).
+- [x] Incluir um arquivo README.md com:
+  - [x] Instruções para executar o projeto (instalação de dependências, execução do servidor e configuração).
+  - [x] Explicação básica sobre a solução e arquitetura utilizada.
+  - [x] Bônus (não obrigatório, mas valorizado)
+    - [x] Testes Automatizados: Crie testes unitários e/ou de integração para demonstrar a robustez do código.
+    - [x] Uso de Docker: Utilize containers Docker para facilitar a configuração e execução do ambiente de desenvolvimento.
+    - [x] Documentação Alternativa: Caso deseje, inclua uma documentação dos endpoints (ex.: Postman Collection ou similar).
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
@@ -82,38 +116,6 @@ Documentação Alternativa: Caso deseje, inclua uma documentação dos endpoints
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ pnpm install
-```
-
-## Running the app
-
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
-```
 
 ## Support
 
