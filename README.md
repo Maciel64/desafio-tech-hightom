@@ -31,6 +31,8 @@ pnpm
 1. Utilizei uma arquitetura básica em camadas, com Controller, Service e Repository.
 2. Acredito que a camada de Repository é indispensável, pois é importante para mockar facilmente ao realizar os testes unitários
 3. Criei interfaces nas camadas de Service e Repository, assim como na Queue, para representar o modelo que as abstrações devem seguir. Isso é importante para seguir o Liskov Substitution Principle (LSP ou L do SOLID), tornando fácil substituir as implementações. Por exemplo, o TypeORM pode ser substituido pelo Prisma e o driver do Bull pelo do RabbitMQ facilmente, desde que as classes que realizem essas implementações tenham os mesmos métodos das interfaces, com os mesmos parâmetros e retornos.
+4. A API não foi Dockerizada para facilitar a visualização de logs no console, o que seria um pouco mais chatinho para o examinador visualizar a partir dos logs do Docker.
+5. No `order.processor.ts` escolhi por simular um delay de 3 segundos com a linha `await new Promise((resolve) => setTimeout(resolve, 3000));`, para ser possível diferenciar a fila de processos acontecendo. Nesse momento é interessante que seja possível visualizar tanto a requisição de criação de produto quanto o console do Nest.
 
 ## Desafio Técnico – Desenvolvedor Back-End (NestJS + TypeORM)
 
@@ -41,25 +43,30 @@ O objetivo principal é garantir que os pedidos sejam registrados e processados 
 
 Requisitos do Desafio
 Registrar um Pedido:
-Ao receber os dados de um pedido (produto, quantidade, preço e informações do cliente), ele deve ser salvo no banco de dados.
+
+- [x] Ao receber os dados de um pedido (produto, quantidade, preço e informações do cliente), ele deve ser salvo no banco de dados.
 
 Processamento do Pedido:
-Após o registro, o pedido deve ser enviado para uma fila (utilizando Bull) e processado de forma assíncrona. Durante o processamento:
+
+- [x] Após o registro, o pedido deve ser enviado para uma fila (utilizando Bull) e processado de forma assíncrona. Durante o processamento:
 
 Atualize o status do pedido para "Processado".
 Registre um log de processamento, contendo a data e hora da finalização.
 Consultar Pedidos:
-Desenvolva um endpoint que permita listar pedidos, com os seguintes filtros opcionais:
 
-- [x] Status: Filtrar por status do pedido (ex.: "Pendente", "Processado").
+- [x] Desenvolva um endpoint que permita listar pedidos, com os seguintes filtros opcionais:
 
-- Data de Criação: Filtrar pedidos por intervalo de datas.
+  - [x] Status: Filtrar por status do pedido (ex.: "Pendente", "Processado").
+
+  - [x] Data de Criação: Filtrar pedidos por intervalo de datas.
 
 ### Requisitos Técnicos
 
-- [x] NestJS: Para a estrutura do projeto. -[x] TypeORM: Para modelagem e manipulação do banco de dados. -[x] Filas: Utilize uma biblioteca como Bull ou RabbitMQ para o processamento assíncrono. -[x] Clean Architecture: A aplicação deve estar estruturada seguindo os princípios da Clean Architecture (use cases, repositórios, entidades, etc.).
-
-- Endpoints REST: Desenvolva endpoints para:
+- [x] NestJS: Para a estrutura do projeto.
+- [x] TypeORM: Para modelagem e manipulação do banco de dados.
+- [x] Filas: Utilize uma biblioteca como Bull ou RabbitMQ para o processamento assíncrono.
+- [x] Clean Architecture: A aplicação deve estar estruturada seguindo os princípios da Clean Architecture (use cases, repositórios, entidades, etc.).
+- [x] Endpoints REST: Desenvolva endpoints para:
   - [x] Registrar pedidos.
   - [x] Consultar pedidos com filtros opcionais.
   - ? Critérios de Avaliação
