@@ -16,7 +16,10 @@ export class OrderQueue implements IOrderQueue {
 
     await this.orderQueue.add(order);
 
-    await this.orderRepository.update(order.id, { status: Status.FINISHED });
+    await this.orderRepository.update(order.id, {
+      status: Status.FINISHED,
+      closedAt: new Date(),
+    });
   }
 }
 

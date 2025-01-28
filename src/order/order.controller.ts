@@ -6,11 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderRepository } from './order.repository';
 import { CreateOrderDTO } from './DTO/create-order.dto';
 import { OrderQueue } from './order.queue';
+import { UpdateOrderDTO } from './DTO/update-order.dto';
+import { QueryOrderDTO } from './DTO/query-order.dto';
 
 @Controller('api/v1/orders')
 export class OrderController {
@@ -21,8 +24,8 @@ export class OrderController {
   ) {}
 
   @Get()
-  getAll() {
-    return this.orderService.getAll(this.orderRepository);
+  getAll(@Query() query: QueryOrderDTO) {
+    return this.orderService.getAll(query, this.orderRepository);
   }
 
   @Get(':id')
@@ -40,7 +43,7 @@ export class OrderController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() data: CreateOrderDTO) {
+  update(@Param('id') id: string, @Body() data: UpdateOrderDTO) {
     return this.orderService.update(id, data, this.orderRepository);
   }
 

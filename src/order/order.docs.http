@@ -1,4 +1,4 @@
-GET http://localhost:3000/api/v1/orders
+GET http://localhost:3000/api/v1/orders?status=FINISHED
 
 ###
 
@@ -25,5 +25,6 @@ Content-Type: application/json
   "product": "Pizza",
   "quantity": 21,
   "price": 18,
-  "clientInfo": "Endereço tal na rua tal"
+  "clientInfo": "Endereço tal na rua tal",
+  "status": "PENDING"
 }

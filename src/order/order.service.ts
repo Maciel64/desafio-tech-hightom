@@ -5,6 +5,7 @@ import { IOrderQueue, OrderQueue } from './order.queue';
 import { Order } from './entities/order.entity';
 import { OrderNotFoundException } from './order.error';
 import { UpdateOrderDTO } from './DTO/update-order.dto';
+import { QueryOrderDTO } from './DTO/query-order.dto';
 
 @Injectable()
 export class OrderService implements IOrderService {
@@ -18,8 +19,8 @@ export class OrderService implements IOrderService {
     return order;
   }
 
-  async getAll(orderRepository: OrderRepository) {
-    return orderRepository.getAll();
+  async getAll(query: QueryOrderDTO, orderRepository: OrderRepository) {
+    return orderRepository.getAll(query);
   }
 
   async create(
@@ -58,7 +59,10 @@ export class OrderService implements IOrderService {
 
 export interface IOrderService {
   get: (id: string, orderRepository: OrderRepository) => Promise<Order>;
-  getAll: (orderRepository: OrderRepository) => Promise<Order[]>;
+  getAll: (
+    query: QueryOrderDTO,
+    orderRepository: OrderRepository,
+  ) => Promise<Order[]>;
   create: (
     data: CreateOrderDTO,
     orderRepository: IOrderRepository,

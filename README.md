@@ -17,18 +17,19 @@ Registre um log de processamento, contendo a data e hora da finalização.
 Consultar Pedidos:
 Desenvolva um endpoint que permita listar pedidos, com os seguintes filtros opcionais:
 
-Status: Filtrar por status do pedido (ex.: "Pendente", "Processado").
-Data de Criação: Filtrar pedidos por intervalo de datas.
-Requisitos Técnicos
-NestJS: Para a estrutura do projeto.
-TypeORM: Para modelagem e manipulação do banco de dados.
-Filas: Utilize uma biblioteca como Bull ou RabbitMQ para o processamento assíncrono.
-Clean Architecture: A aplicação deve estar estruturada seguindo os princípios da Clean Architecture (use cases, repositórios, entidades, etc.).
-Endpoints REST: Desenvolva endpoints para:
+- Status: Filtrar por status do pedido (ex.: "Pendente", "Processado").
+- Data de Criação: Filtrar pedidos por intervalo de datas.
 
-- Registrar pedidos.
-- Consultar pedidos com filtros opcionais.
-- Critérios de Avaliação
+### Requisitos Técnicos
+
+- NestJS: Para a estrutura do projeto.
+- TypeORM: Para modelagem e manipulação do banco de dados.
+- Filas: Utilize uma biblioteca como Bull ou RabbitMQ para o processamento assíncrono.
+- Clean Architecture: A aplicação deve estar estruturada seguindo os princípios da Clean Architecture (use cases, repositórios, entidades, etc.).
+- Endpoints REST: Desenvolva endpoints para:
+  - Registrar pedidos.
+  - Consultar pedidos com filtros opcionais.
+  - Critérios de Avaliação
 
 Tempo de Entrega:
 O prazo de entrega será um fator importante. Avaliaremos sua capacidade de concluir o desafio dentro do tempo estimado, levando em consideração a qualidade do resultado.

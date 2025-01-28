@@ -4,6 +4,7 @@ import { CreateOrderDTO } from './DTO/create-order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateOrderDTO } from './DTO/update-order.dto';
+import { QueryOrderDTO } from './DTO/query-order.dto';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -15,8 +16,12 @@ export class OrderRepository implements IOrderRepository {
     return this.typeormOrderAdapter.findOne({ where: { id } });
   }
 
-  async getAll(): Promise<Order[]> {
-    return this.typeormOrderAdapter.find();
+  async getAll(query: QueryOrderDTO): Promise<Order[]> {
+    return this.typeormOrderAdapter.find({
+      where: {
+        status: query.status,
+      },
+    });
   }
 
   async create(data: CreateOrderDTO): Promise<Order> {
@@ -36,7 +41,7 @@ export class OrderRepository implements IOrderRepository {
 
 export interface IOrderRepository {
   get: (id: string) => Promise<Order>;
-  getAll: () => Promise<Order[]>;
+  getAll: (query: QueryOrderDTO) => Promise<Order[]>;
   create: (data: CreateOrderDTO) => Promise<Order>;
   update: (id: string, data: UpdateOrderDTO) => Promise<Order>;
   delete: (id: string) => Promise<void>;

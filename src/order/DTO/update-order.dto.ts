@@ -1,4 +1,4 @@
-import { IsString, IsInt, IsOptional } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsEnum, IsDate } from 'class-validator';
 import { Status } from '../entities/order.entity';
 
 export class UpdateOrderDTO {
@@ -19,6 +19,13 @@ export class UpdateOrderDTO {
   clientInfo?: string;
 
   @IsOptional()
-  @IsString()
+  @IsEnum(Status, {
+    message:
+      'Os valores permitidos para status são "PENDING", "PROCESSING" e "FINISHED"',
+  })
   status?: Status;
+
+  @IsOptional()
+  @IsDate()
+  closedAt?: Date;
 }
