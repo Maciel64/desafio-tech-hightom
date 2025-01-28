@@ -27,7 +27,10 @@ export class OrderService implements IOrderService {
     orderRepository: OrderRepository,
     orderQueue: OrderQueue,
   ) {
-    const order = await orderRepository.create(data);
+    const order = await orderRepository.create({
+      ...data,
+      price: data.price * 100,
+    });
 
     orderQueue.register(order);
 
